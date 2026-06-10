@@ -2,7 +2,7 @@
 
 Protocol Buffer definitions for the SpendSense API. This is the single source of truth for the API contract shared between the backend and frontend.
 
-Published to the [Buf Schema Registry](https://buf.build/mauroafa91/spendsense) as `buf.build/mauroafa91/spendsense`.
+Published to the [Buf Schema Registry](https://buf.build/xpendsense/spendsense) as `buf.build/xpendsense/spendsense`.
 
 ---
 
@@ -60,7 +60,7 @@ Declare this module as a dependency in `buf.yaml`, then run `buf generate`:
 # buf.yaml
 version: v2
 deps:
-  - buf.build/mauroafa91/spendsense
+  - buf.build/xpendsense/spendsense
 ```
 
 ```bash

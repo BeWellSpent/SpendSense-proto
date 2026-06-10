@@ -1,5 +1,5 @@
 version: v2
-name: buf.build/mauroafa91/spendsense
+name: buf.build/xpendsense/spendsense
 lint:
   use:
     - DEFAULT
