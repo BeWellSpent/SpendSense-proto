@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package spendsense.v1;
 
-option go_package = "github.com/mauro-afa91/spendsense/gen/spendsense/v1;spendsensev1";
-
 import "google/protobuf/timestamp.proto";
 import "spendsense/v1/common.proto";
+
+option go_package = "github.com/mauro-afa91/spendsense/gen/spendsense/v1;spendsensev1";
 
 service BudgetService {
   // Budget CRUD

@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package spendsense.v1;
 
-option go_package = "github.com/mauro-afa91/spendsense/gen/spendsense/v1;spendsensev1";
-
 import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/mauro-afa91/spendsense/gen/spendsense/v1;spendsensev1";
 
 service UserService {
   rpc GetMe(GetMeRequest) returns (GetMeResponse);
