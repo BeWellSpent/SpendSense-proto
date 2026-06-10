@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   proto:
@@ -17,5 +17,5 @@ jobs:
           lint: true
           format: true
           breaking: true
-          breaking_against: https://github.com/${{ github.repository }}.git#branch=main
+          breaking_against: https://github.com/${{ github.repository }}.git#branch=${{ github.base_ref }}
           push: false
