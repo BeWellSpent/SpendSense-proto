@@ -59,6 +59,11 @@ service BudgetService {
   rpc CreatePaymentMethod(CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
   rpc UpdatePaymentMethod(UpdatePaymentMethodRequest) returns (UpdatePaymentMethodResponse);
   rpc DeletePaymentMethod(DeletePaymentMethodRequest) returns (DeletePaymentMethodResponse);
+
+  // Expense allocations — per-person planned amounts per category; profile-scoped
+  rpc ListExpenseAllocations(ListExpenseAllocationsRequest) returns (ListExpenseAllocationsResponse);
+  rpc UpsertExpenseAllocation(UpsertExpenseAllocationRequest) returns (UpsertExpenseAllocationResponse);
+  rpc DeleteExpenseAllocation(DeleteExpenseAllocationRequest) returns (DeleteExpenseAllocationResponse);
 }
 
 // ─── Core entities ───────────────────────────────────────────────────────────
@@ -160,6 +165,15 @@ message PaymentMethod {
   PaymentType type = 3;
   int64 budget_person_id = 4; // 0 = unattributed
   string color = 5;
+}
+
+// A per-person planned spending amount for a category. Profile-scoped; carries forward across periods.
+message ExpenseAllocation {
+  int64 id = 1;
+  string budget_profile_id = 2;
+  int32 category_id = 3;
+  int64 budget_person_id = 4; // 0 = unattributed
+  Money planned_amount = 5;
 }
 
 // ─── BudgetProfile CRUD ──────────────────────────────────────────────────────
@@ -514,3 +528,31 @@ message DeletePaymentMethodRequest {
 }
 
 message DeletePaymentMethodResponse {}
+
+// ─── Expense allocations ──────────────────────────────────────────────────────
+
+message ListExpenseAllocationsRequest {
+  string budget_profile_id = 1;
+}
+
+message ListExpenseAllocationsResponse {
+  repeated ExpenseAllocation allocations = 1;
+}
+
+message UpsertExpenseAllocationRequest {
+  string budget_profile_id = 1;
+  int32 category_id = 2;
+  int64 budget_person_id = 3; // 0 = unattributed
+  Money planned_amount = 4;
+}
+
+message UpsertExpenseAllocationResponse {
+  ExpenseAllocation allocation = 1;
+}
+
+message DeleteExpenseAllocationRequest {
+  int64 id = 1;
+  string budget_profile_id = 2;
+}
+
+message DeleteExpenseAllocationResponse {}
