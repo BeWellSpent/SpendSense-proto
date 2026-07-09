@@ -31,9 +31,9 @@ service InviteService {
 message BudgetInvite {
   string id = 1;
   string budget_profile_id = 2;
-  string budget_name = 3;     // denormalized for display on the invite page
-  string inviter_name = 4;    // denormalized for display on the invite page
-  string email = 5;           // recipient email address
+  string budget_name = 3; // denormalized for display on the invite page
+  string inviter_name = 4; // denormalized for display on the invite page
+  string email = 5; // recipient email address
   BudgetRole role = 6;
   InviteStatus status = 7;
   google.protobuf.Timestamp expires_at = 8;

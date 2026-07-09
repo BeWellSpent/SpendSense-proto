@@ -75,9 +75,9 @@ enum FilingStatus {
 // Role a user holds on a specific budget profile.
 enum BudgetRole {
   BUDGET_ROLE_UNSPECIFIED = 0;
-  BUDGET_ROLE_ADMIN = 1;       // full access including user management
+  BUDGET_ROLE_ADMIN = 1; // full access including user management
   BUDGET_ROLE_COLLABORATOR = 2; // all actions except managing users
-  BUDGET_ROLE_VIEWER = 3;      // read-only; no create/update/delete
+  BUDGET_ROLE_VIEWER = 3; // read-only; no create/update/delete
 }
 
 // How often the user makes estimated tax payments.
