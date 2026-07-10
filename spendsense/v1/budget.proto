@@ -177,9 +177,12 @@ message FixedExpense {
   string payment_method_id = 6; // empty = unset
   int32 day_of_month = 7; // 1–31; clamped to last day of month when needed
   bool is_active = 8;
-  int32 interval_months = 9; // 1 = every month (default), 3 = quarterly, 12 = yearly, etc.
+  int32 interval_months = 9; // 1 = every month (default), 3 = quarterly, 12 = yearly, etc. Applies when frequency_unit = MONTH.
   google.protobuf.Timestamp next_due_date = 10; // computed, not persisted
   optional google.protobuf.Timestamp anchor_date = 11; // explicit interval anchor + day source; overrides created_at/day_of_month when set
+  FrequencyUnit frequency_unit = 12; // UNSPECIFIED/MONTH = today's month-based behavior (default); WEEK = interval_weeks + day_of_week apply instead
+  int32 interval_weeks = 13; // 1 = every week; applies when frequency_unit = WEEK
+  int32 day_of_week = 14; // 1 = Monday ... 7 = Sunday (ISO 8601); applies when frequency_unit = WEEK
 }
 
 message Category {
@@ -643,6 +646,9 @@ message CreateFixedExpenseRequest {
   int32 day_of_month = 6;
   int32 interval_months = 7; // 1 = every month (default) if unset/zero
   optional google.protobuf.Timestamp anchor_date = 8; // when set, overrides created_at + day_of_month; immediate spawn becomes conditional on due-check
+  FrequencyUnit frequency_unit = 9; // UNSPECIFIED/MONTH (default) or WEEK
+  int32 interval_weeks = 10; // applies when frequency_unit = WEEK
+  int32 day_of_week = 11; // 1 = Monday ... 7 = Sunday; applies when frequency_unit = WEEK
 }
 
 message CreateFixedExpenseResponse {
@@ -660,6 +666,9 @@ message UpdateFixedExpenseRequest {
   int32 day_of_month = 7;
   int32 interval_months = 8;
   optional google.protobuf.Timestamp anchor_date = 9; // when set, overrides created_at + day_of_month for this expense going forward
+  FrequencyUnit frequency_unit = 10; // UNSPECIFIED/MONTH (default) or WEEK
+  int32 interval_weeks = 11; // applies when frequency_unit = WEEK
+  int32 day_of_week = 12; // 1 = Monday ... 7 = Sunday; applies when frequency_unit = WEEK
 }
 
 message UpdateFixedExpenseResponse {
