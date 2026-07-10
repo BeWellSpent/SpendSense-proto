@@ -90,3 +90,11 @@ enum TaxPaymentFrequency {
   TAX_PAYMENT_FREQUENCY_SEMI_ANNUAL = 6;
   TAX_PAYMENT_FREQUENCY_ANNUAL = 12;
 }
+
+// Which interval unit a FixedExpense's recurrence is counted in.
+// UNSPECIFIED is treated as MONTH for backward compatibility with existing rows.
+enum FrequencyUnit {
+  FREQUENCY_UNIT_UNSPECIFIED = 0;
+  FREQUENCY_UNIT_MONTH = 1; // interval_months + day_of_month apply
+  FREQUENCY_UNIT_WEEK = 2; // interval_weeks + day_of_week apply
+}
