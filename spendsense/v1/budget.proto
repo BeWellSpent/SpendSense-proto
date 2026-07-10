@@ -516,7 +516,11 @@ message UnmarkTransactionAsPaidResponse {
 
 // ─── Categories ──────────────────────────────────────────────────────────────
 
-message ListCategoriesRequest {}
+message ListCategoriesRequest {
+  // When provided, also returns categories referenced by transactions or fixed expenses in this budget.
+  // Allows budget members to see categories created by the budget owner.
+  string budget_profile_id = 1;
+}
 
 message ListCategoriesResponse {
   repeated Category categories = 1;
