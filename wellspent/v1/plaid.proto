@@ -11,6 +11,10 @@ service PlaidService {
   rpc ExchangePublicToken(ExchangePublicTokenRequest) returns (ExchangePublicTokenResponse);
   rpc GetPlaidConnections(GetPlaidConnectionsRequest) returns (GetPlaidConnectionsResponse);
   rpc DisconnectPlaid(DisconnectPlaidRequest) returns (DisconnectPlaidResponse);
+  // Refreshes the account list for an existing connection — call after a
+  // Link "update mode" session (e.g. account selection) completes, since
+  // update mode doesn't return a public_token to exchange.
+  rpc RefreshPlaidAccounts(RefreshPlaidAccountsRequest) returns (RefreshPlaidAccountsResponse);
 }
 
 // ─── Shared message ───────────────────────────────────────────────────────────
@@ -30,6 +34,10 @@ message PlaidConnection {
 message CreateLinkTokenRequest {
   // Budget profile that imported transactions will be written to.
   string budget_profile_id = 1;
+  // Optional. If set, requests a Link token in "update mode" with account
+  // selection enabled for this existing connection (add/remove accounts on
+  // an already-connected item) instead of a fresh connect flow.
+  string connection_id = 2;
 }
 
 message CreateLinkTokenResponse {
@@ -68,3 +76,14 @@ message DisconnectPlaidRequest {
 }
 
 message DisconnectPlaidResponse {}
+
+// ─── RefreshPlaidAccounts ──────────────────────────────────────────────────────
+
+message RefreshPlaidAccountsRequest {
+  // UUID of the plaid_item row.
+  string connection_id = 1;
+}
+
+message RefreshPlaidAccountsResponse {
+  PlaidConnection connection = 1;
+}
